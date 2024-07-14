@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'post_service.dart';
 import 'post_detail_screen.dart';
+import 'flutter/material.dart';
 
 class NewsScreen extends StatefulWidget {
   @override
