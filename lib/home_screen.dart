@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'post_service.dart';
 import 'post_detail_screen.dart';
 import 'profile_screen.dart';
+// ignore: unused_import
 import 'search_page.dart';
 import 'news_screen.dart';
 
@@ -139,67 +140,18 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class HomePage extends StatelessWidget {
-  final List<String> imgList = [
-    'https://via.placeholder.com/600x300.png?text=Image+1',
-    'https://via.placeholder.com/600x300.png?text=Image+2',
-    'https://via.placeholder.com/600x300.png?text=Image+3',
-    'https://via.placeholder.com/600x300.png?text=Image+4',
-    'https://via.placeholder.com/600x300.png?text=Image+5',
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CarouselSlider(
-          options: CarouselOptions(
-            height: 200.0,
-            autoPlay: true,
-            enlargeCenterPage: true,
-            aspectRatio: 16 / 9,
-            viewportFraction: 0.8,
-          ),
-          items: imgList
-              .map((item) => Container(
-                    child: Center(
-                      child:
-                          Image.network(item, fit: BoxFit.cover, width: 1000),
-                    ),
-                  ))
-              .toList(),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ),
+      body: Center(
+        child: Text(
+          'Home Page',
+          style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
         ),
-        Expanded(
-          child: FutureBuilder<List<Post>>(
-            future: PostService.fetchPosts(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text('Error: ${snapshot.error}'));
-              } else {
-                final posts = snapshot.data!;
-                return ListView.builder(
-                  itemCount: posts.length,
-                  itemBuilder: (context, index) {
-                    final post = posts[index];
-                    return ListTile(
-                      title: Text(post.title),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PostDetailScreen(id: post.id),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                );
-              }
-            },
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
